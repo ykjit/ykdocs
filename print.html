@@ -1,0 +1,508 @@
+<!DOCTYPE HTML>
+<html lang="en" class="sidebar-visible no-js light">
+    <head>
+        <!-- Book generated using mdBook -->
+        <meta charset="UTF-8">
+        <title>Yorick</title>
+        <meta name="robots" content="noindex" />
+
+
+        <!-- Custom HTML head -->
+        
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="theme-color" content="#ffffff" />
+
+        <link rel="icon" href="favicon.svg">
+        <link rel="shortcut icon" href="favicon.png">
+        <link rel="stylesheet" href="css/variables.css">
+        <link rel="stylesheet" href="css/general.css">
+        <link rel="stylesheet" href="css/chrome.css">
+        <link rel="stylesheet" href="css/print.css" media="print">
+
+        <!-- Fonts -->
+        <link rel="stylesheet" href="FontAwesome/css/font-awesome.css">
+        <link rel="stylesheet" href="fonts/fonts.css">
+
+        <!-- Highlight.js Stylesheets -->
+        <link rel="stylesheet" href="highlight.css">
+        <link rel="stylesheet" href="tomorrow-night.css">
+        <link rel="stylesheet" href="ayu-highlight.css">
+
+        <!-- Custom theme stylesheets -->
+
+    </head>
+    <body>
+    <div id="body-container">
+        <!-- Provide site root to javascript -->
+        <script>
+            var path_to_root = "";
+            var default_theme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "navy" : "light";
+        </script>
+
+        <!-- Work around some values being stored in localStorage wrapped in quotes -->
+        <script>
+            try {
+                var theme = localStorage.getItem('mdbook-theme');
+                var sidebar = localStorage.getItem('mdbook-sidebar');
+
+                if (theme.startsWith('"') && theme.endsWith('"')) {
+                    localStorage.setItem('mdbook-theme', theme.slice(1, theme.length - 1));
+                }
+
+                if (sidebar.startsWith('"') && sidebar.endsWith('"')) {
+                    localStorage.setItem('mdbook-sidebar', sidebar.slice(1, sidebar.length - 1));
+                }
+            } catch (e) { }
+        </script>
+
+        <!-- Set the theme before any content is loaded, prevents flash -->
+        <script>
+            var theme;
+            try { theme = localStorage.getItem('mdbook-theme'); } catch(e) { }
+            if (theme === null || theme === undefined) { theme = default_theme; }
+            var html = document.querySelector('html');
+            html.classList.remove('no-js')
+            html.classList.remove('light')
+            html.classList.add(theme);
+            html.classList.add('js');
+        </script>
+
+        <!-- Hide / unhide sidebar before it is displayed -->
+        <script>
+            var html = document.querySelector('html');
+            var sidebar = null;
+            if (document.body.clientWidth >= 1080) {
+                try { sidebar = localStorage.getItem('mdbook-sidebar'); } catch(e) { }
+                sidebar = sidebar || 'visible';
+            } else {
+                sidebar = 'hidden';
+            }
+            html.classList.remove('sidebar-visible');
+            html.classList.add("sidebar-" + sidebar);
+        </script>
+
+        <nav id="sidebar" class="sidebar" aria-label="Table of contents">
+            <div class="sidebar-scrollbox">
+                <ol class="chapter"><li class="chapter-item expanded "><a href="intro.html"><strong aria-hidden="true">1.</strong> Introduction</a></li><li class="chapter-item expanded "><a href="user/index.html"><strong aria-hidden="true">2.</strong> Using Yk</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="user/gotchas.html"><strong aria-hidden="true">2.1.</strong> Gotchas</a></li></ol></li><li class="chapter-item expanded "><a href="dev/index.html"><strong aria-hidden="true">3.</strong> Development</a></li><li><ol class="section"><li class="chapter-item expanded "><a href="dev/getting_started.html"><strong aria-hidden="true">3.1.</strong> Getting Started</a></li><li class="chapter-item expanded "><a href="dev/env.html"><strong aria-hidden="true">3.2.</strong> Environment Variables</a></li></ol></li><li class="chapter-item expanded "><div><strong aria-hidden="true">4.</strong> Contributing</div></li><li><ol class="section"><li class="chapter-item expanded "><a href="contributing/prs.html"><strong aria-hidden="true">4.1.</strong> Pull Requests</a></li></ol></li></ol>
+            </div>
+            <div id="sidebar-resize-handle" class="sidebar-resize-handle"></div>
+        </nav>
+
+        <div id="page-wrapper" class="page-wrapper">
+
+            <div class="page">
+                                <div id="menu-bar-hover-placeholder"></div>
+                <div id="menu-bar" class="menu-bar sticky bordered">
+                    <div class="left-buttons">
+                        <button id="sidebar-toggle" class="icon-button" type="button" title="Toggle Table of Contents" aria-label="Toggle Table of Contents" aria-controls="sidebar">
+                            <i class="fa fa-bars"></i>
+                        </button>
+                        <button id="theme-toggle" class="icon-button" type="button" title="Change theme" aria-label="Change theme" aria-haspopup="true" aria-expanded="false" aria-controls="theme-list">
+                            <i class="fa fa-paint-brush"></i>
+                        </button>
+                        <ul id="theme-list" class="theme-popup" aria-label="Themes" role="menu">
+                            <li role="none"><button role="menuitem" class="theme" id="light">Light</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="rust">Rust</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="coal">Coal</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="navy">Navy</button></li>
+                            <li role="none"><button role="menuitem" class="theme" id="ayu">Ayu</button></li>
+                        </ul>
+                        <button id="search-toggle" class="icon-button" type="button" title="Search. (Shortkey: s)" aria-label="Toggle Searchbar" aria-expanded="false" aria-keyshortcuts="S" aria-controls="searchbar">
+                            <i class="fa fa-search"></i>
+                        </button>
+                    </div>
+
+                    <h1 class="menu-title">Yorick</h1>
+
+                    <div class="right-buttons">
+                        <a href="print.html" title="Print this book" aria-label="Print this book">
+                            <i id="print-button" class="fa fa-print"></i>
+                        </a>
+
+                    </div>
+                </div>
+
+                <div id="search-wrapper" class="hidden">
+                    <form id="searchbar-outer" class="searchbar-outer">
+                        <input type="search" id="searchbar" name="searchbar" placeholder="Search this book ..." aria-controls="searchresults-outer" aria-describedby="searchresults-header">
+                    </form>
+                    <div id="searchresults-outer" class="searchresults-outer hidden">
+                        <div id="searchresults-header" class="searchresults-header"></div>
+                        <ul id="searchresults">
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Apply ARIA attributes after the sidebar and the sidebar toggle button are added to the DOM -->
+                <script>
+                    document.getElementById('sidebar-toggle').setAttribute('aria-expanded', sidebar === 'visible');
+                    document.getElementById('sidebar').setAttribute('aria-hidden', sidebar !== 'visible');
+                    Array.from(document.querySelectorAll('#sidebar a')).forEach(function(link) {
+                        link.setAttribute('tabIndex', sidebar === 'visible' ? 0 : -1);
+                    });
+                </script>
+
+                <div id="content" class="content">
+                    <main>
+                        <h1 id="introduction"><a class="header" href="#introduction">Introduction</a></h1>
+<p>yk is a meta-tracing system built on LLVM.</p>
+<p>Note that the system is in early stages of development: don't expect it to work
+yet.</p>
+<p>The source for this documentation is
+<a href="https://github.com/ykjit/ykdocs">available on GitHub</a>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="using-yk"><a class="header" href="#using-yk">Using Yk</a></h1>
+<p>This section documents how interpreter authors can use the Yk system for
+JITting.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="gotchas"><a class="header" href="#gotchas">Gotchas</a></h1>
+<p>Here are some potential &quot;gotchas&quot; for interpreter authors:</p>
+<ul>
+<li>
+<p>Yk can only currently work with &quot;simple interpreter loop&quot;-style interpreters
+and cannot yet handle unstructured interpreter loops (e.g. threaded
+dispatch).</p>
+</li>
+<li>
+<p>Yk currently doesn't handle calls to <code>pthread_exit()</code> gracefully (<a href="https://github.com/ykjit/yk/issues/525">more
+details</a>).</p>
+</li>
+<li>
+<p>You cannot valgrind an interpreter that is using Intel PT for tracing (<a href="https://github.com/ykjit/yk/issues/177">more
+details</a>).</p>
+</li>
+</ul>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="development"><a class="header" href="#development">Development</a></h1>
+<p>This section talks about how set up your system to start developing yk.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="getting-started"><a class="header" href="#getting-started">Getting Started</a></h1>
+<p>This guide describes how to get up and running with yk.</p>
+<h2 id="repositories"><a class="header" href="#repositories">Repositories</a></h2>
+<p>yk is spread over several git repositories, but you will need to download and
+build at least the following two in order to have a running system:</p>
+<ul>
+<li><a href="https://github.com/ykjit/ykllvm">ykllvm</a>: Our fork of LLVM.</li>
+<li><a href="https://github.com/ykjit/yk">yk</a>: The runtime parts of the system.</li>
+</ul>
+<p>Since <code>yk</code> depends on <code>ykllvm</code>, you must build <code>ykllvm</code> first.</p>
+<h2 id="building-ykllvm"><a class="header" href="#building-ykllvm">Building <code>ykllvm</code></a></h2>
+<p>Clone the repository, switch to the <code>ykjit/13.x</code> branch and build <code>ykllvm</code>:</p>
+<pre><code>git clone https://github.com/ykjit/ykllvm
+cd ykllvm
+mkdir build
+cmake -DCMAKE_INSTALL_PREFIX=`pwd`/../inst \
+    -DLLVM_INSTALL_UTILS=On \
+    -DCMAKE_BUILD_TYPE=release \
+    -DLLVM_ENABLE_ASSERTIONS=On \
+    -DLLVM_ENABLE_PROJECTS=&quot;lld;clang&quot; \
+    -DCLANG_DEFAULT_PIE_ON_LINUX=OFF \
+    ../llvm
+make -j `nproc` install
+</code></pre>
+<p>In order that your subsequent build(s) of <code>yk</code> pick up <code>ykllvm</code>, you must
+ensure that the <code>ykllvm</code> compiler binaries are used instead of your system's
+default LLVM binaries. For example, prepend the <code>ykllvm</code> installation
+directory to your <code>$PATH</code>:</p>
+<pre><code>export PATH=/path/to/ykllvm/inst/bin:${PATH}
+</code></pre>
+<h2 id="working-with-the-yk-repo"><a class="header" href="#working-with-the-yk-repo">Working with the <code>yk</code> repo.</a></h2>
+<p>The <code>yk</code> repo is a Rust workspace (i.e. a collection of crates). You can build
+and test in the usual ways using <code>cargo</code>.</p>
+<p>For example, to build and test the system, run:</p>
+<pre><code>cargo test
+</code></pre>
+<p>The only requirement is that the LLVM binaries in your <code>$PATH</code> are those from a
+compiled <code>ykllvm</code> (see the previous section).</p>
+<h3 id="c-code"><a class="header" href="#c-code">C++ code</a></h3>
+<p>The <code>yk</code> repo contains some C++ code for interacting with LLVM. <code>cargo fmt</code>
+will not format C++ code, and you should instead use <code>cargo xtask cfmt</code>.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="environment-variables"><a class="header" href="#environment-variables">Environment Variables</a></h1>
+<p>There are a number of environment variables which control the behaviour of the
+yk system.</p>
+<p>Variables prefixed with <code>YKD_</code> are intended for debugging only. Most (if not
+all) of the debugging variables introduce extra computation that slows down
+program execution.</p>
+<p>Some variables are conditionally compiled-in when the containing crate is built
+with the <code>yk_testing</code> feature enabled. This feature is used internally for
+testing only. It is enabled whenever the <code>tests</code> crate is being compiled, so a
+regular <code>cargo build</code> in the root of the workspace will enable the feature (to
+build <em>without</em> the feature enabled, do <code>cargo build -p ykcapi</code>).</p>
+<h2 id="run-time-variables"><a class="header" href="#run-time-variables">Run-time Variables</a></h2>
+<h3 id="ykd_force_trace_decoder"><a class="header" href="#ykd_force_trace_decoder"><code>YKD_FORCE_TRACE_DECODER</code></a></h3>
+<p>Forces use of the specified trace decoder. Valid values are <code>libipt</code> and
+<code>ykpt</code>.</p>
+<p>This variable is only available when <code>hwtracer</code> is compiled with the
+<code>yk_testing</code> Cargo feature enabled.</p>
+<h3 id="ykd_print_ir"><a class="header" href="#ykd_print_ir"><code>YKD_PRINT_IR</code></a></h3>
+<p><code>YKD_PRINT_IR</code> accepts a comma-separated list of JIT pipeline stages at which
+to print LLVM IR (to stderr).</p>
+<p>The following stages are supported:</p>
+<ul>
+<li><code>aot</code>: the IR embedded in the ahead-of-time compiled binary.</li>
+<li><code>jit-pre-opt</code>: the IR for the trace before it is optimised by LLVM.</li>
+<li><code>jit-post-opt</code>: the IR for the trace after LLVM has optimised it. This is
+the IR that will be submitted to the LLVM code generator.</li>
+</ul>
+<p>This variable is always available, and does not require any Cargo feature to be
+enabled.</p>
+<h3 id="ykd_print_jitstate"><a class="header" href="#ykd_print_jitstate"><code>YKD_PRINT_JITSTATE</code></a></h3>
+<p>When defined, <code>YKD_PRINT_JITSTATE</code> causes the system to emit extra information
+(to stderr) about JIT transition events:</p>
+<ul>
+<li><code>jit-state: start-tracing</code> is printed when the system starts tracing.</li>
+<li><code>jit-state: stop-tracing</code> is printed when the system stops tracing.</li>
+<li><code>jit-state: enter-jit-code</code> is printed when the system starts executing
+JITted code.</li>
+<li><code>jit-state: exit-jit-code</code> is printed when the system stops executing
+JITted code.</li>
+</ul>
+<p>FIXME: Add stop-gapping states once finalised.</p>
+<p>Note that there are no <code>start-interpreting</code> and <code>stop-interpreting</code>
+notifications: if the system is not currently tracing or executing JITted code,
+then it is implicitly interpreting.</p>
+<p>This variable is only available when building <code>ykrt</code> with the
+<code>yk_jitstate_debug</code> Cargo feature enabled.</p>
+<h3 id="ykd_serialise_compilation"><a class="header" href="#ykd_serialise_compilation"><code>YKD_SERIALISE_COMPILATION</code></a></h3>
+<p>When <code>YKD_SERIALISE_COMPILATION=1</code>, calls to <code>yk_control_point(loc)</code> will block
+while <code>loc</code> is being compiled.</p>
+<p>This variable is only available when building <code>ykrt</code> with the <code>yk_testing</code>
+Cargo feature enabled.</p>
+<h3 id="ykd_trace_debuginfo"><a class="header" href="#ykd_trace_debuginfo"><code>YKD_TRACE_DEBUGINFO</code></a></h3>
+<p>When <code>YKD_TRACE_DEBUGINFO=1</code>, the JIT will add debugging information to JITted
+traces, allowing debuggers conforming to the <a href="https://sourceware.org/gdb/current/onlinedocs/gdb/JIT-Interface.html">gdb JIT
+interface</a>
+to show higher-level representations of the code in the source view.</p>
+<p>This feature relies on the use of temporary files, which (in addition to being
+slow to create) are not guaranteed to be cleaned up.</p>
+<div style="break-before: page; page-break-before: always;"></div><h1 id="pull-requests"><a class="header" href="#pull-requests">Pull Requests</a></h1>
+<p>We welcome all and any contributions, from code to documentation to examples,
+submitted as <em>pull requests</em> to one of our <a href="https://github.com/ykjit/">GitHub
+repositories</a>. Pull requests are reviewed by a yk
+contributor: changes may be requested in an ongoing dialogue between reviewee
+and reviewer; and, if and when agreement is reached, the pull request will be
+merged.</p>
+<p>This page explains yk's approach to the pull request model, based on
+observations of good practise in other projects, and our own experiences.
+Please note that this is a living process: the details are subject to continual
+refinement and change, and no document can perfectly capture all the
+possibilities that will crop up in real life.</p>
+<h2 id="what-makes-a-good-pull-request"><a class="header" href="#what-makes-a-good-pull-request">What makes a good pull request?</a></h2>
+<p>The typical aim of a pull request to a yk repository is to make a focussed
+change such as: add a new feature; fix a bug; or edit documentation. Good pull
+requests are:</p>
+<ol>
+<li>
+<p><em>Self-contained</em>. A pull request should not try and change everything at
+once. Ideally a pull request fixes a single bug or adds a single feature;
+but sometimes a set of interdependent fixes or features makes more sense.
+In general, small pull requests are better than big pull requests.</p>
+</li>
+<li>
+<p><em>Tested</em>. Every piece of new functionality, and every bug fix, must have
+at least one accompanying test, unless testing is impractical. Authors
+should also strive not to break any other part of the system. yk runs
+various tests before a pull request is merged: this reduces, but does
+not remove, the chances of a merged pull request breaking expectations:
+careful thought and testing on the part of the pull request author are
+still required.</p>
+</li>
+<li>
+<p><em>Documented</em>. Code diffs show <em>what</em> has been changed, but not <em>why</em>.
+Documentation explains to other humans the context for a change (i.e. why
+something needed to be changed), the reason why the change is as it is
+(i.e. could the change have taken a different form? what alternatives were
+considered or attempted?), and the consequences of doing so (i.e. does
+this make something easier or harder in the future?). Documentation comes
+in the form of comments in code, &quot;external&quot; documentation (such as you
+read here), and commit and pull request messages. In whatever form it
+comes, documentation must be clear (as easy to understand as possible),
+concise (as short as possible while getting all the required points
+across), complete (not missing any important points), and necessary (not
+documenting that which is obvious).</p>
+</li>
+<li>
+<p><em>Useful</em>. The more people that will benefit from a pull request, the more
+likely it is to be merged. The bar for &quot;useful&quot; is set fairly low, but
+that does not mean that every pull request should be merged: for example,
+a pull request which simply changes code to your preferred style is not
+only not useful but may cause problems for other people working in
+parallel. However, porting the code to a little used platform is often
+useful (provided it doesn't cause undue problems for more widely used
+platforms).</p>
+</li>
+<li>
+<p><em>Harmonious</em>. As far as possible, new code should feel like a natural
+extension of existing code. Following existing naming conventions, for
+example, can sometimes grate, but internal consistency helps those who
+read and edit the code later.</p>
+</li>
+</ol>
+<h2 id="the-reviewer-and-reviewee-covenant"><a class="header" href="#the-reviewer-and-reviewee-covenant">The reviewer and reviewee covenant</a></h2>
+<p>The aim of pull request reviewing is to make yk better while ensuring that our
+quality standards are maintained. Ultimately, it is in yk's best interests for
+all pull requests which satisfy the criteria listed in the previous section to
+be merged in.</p>
+<p>Both reviewer and reviewee have their part to play in making this process work.
+Most importantly, both parties must assume good faith on the part of the other:
+for example, questions are an opportunity to learn or explain, not to attack.
+Clear, polite, communication between both parties is required at all times.
+Reviewers should respond in a timely manner to comments, while understanding
+that reviewees may have many outside responsibilities that mean their responses
+are less timely.</p>
+<p>Reviewers should help a reviewee meet the expected standards, via questioning
+and explicit guidance, without setting the bar unnecessarily high. Reviewers
+need to accept:</p>
+<ul>
+<li>that a pull request cannot solve every problem, and some problems are best
+deferred to a future pull request;</li>
+<li>and that some variance of individual style is inevitable and acceptable.</li>
+</ul>
+<p>Put another way, while we set high standards, and require all contributions to
+meet them, we are not foolish enough to expect perfection. In particular,
+reviewers must be welcoming to newcomers, who may not be familiar with our
+processes or standards, and adjust accordingly.</p>
+<h2 id="the-pull-request-process-in-yk-repositories"><a class="header" href="#the-pull-request-process-in-yk-repositories">The pull request process in yk repositories</a></h2>
+<p>To raise a pull request, you must:</p>
+<ol>
+<li>
+<p>Fork the relevant yk GitHub repository to your account. Note that pull
+requests must never come from a branch on a yk repository.</p>
+</li>
+<li>
+<p>Create a new branch in your fork. If you are unsure about the name, start
+with something generic and rename it later with <code>git branch -m &lt;new name&gt;</code>.</p>
+</li>
+<li>
+<p>Make your changes and commit them. It is not only allowed, but often best,
+to have multiple commits: each commit should be a logical change building
+upon one of its predecessors. Each commit should be capable of passing all
+tests successfully (amongst other things, to avoid breaking <code>git bisect</code>).</p>
+</li>
+<li>
+<p>Push your branch to your GitHub fork and raise a pull request. Give the
+pull request a meaningful title (for example, &quot;Fix bug&quot; is not helpful but
+&quot;Deal with an empty list correctly&quot; is) and a description (empty
+descriptions are almost never acceptable). If the pull request fixes all
+aspects of a GitHub issue, add the text <code>Fixes #&lt;GitHub issue number&gt;</code>, as
+a line on its own, into the description: GitHub will then automatically
+close that issue when the pull request is merged.</p>
+</li>
+</ol>
+<p>Your pull request has now been raised and will be reviewed by a yk contributor.
+The aim of a review is two fold: to ensure that contributions to yk are of an
+acceptable quality; and that at least two people (the reviewer and reviewee)
+understand what was changed and why.</p>
+<p>The reviewer will comment in detail on specific lines of the commit and on the
+overall pull request. Comments might be queries (e.g. &quot;can the list ever be
+empty at this point?&quot;) or corrections (e.g. &quot;we need to deal with the
+possibility of an empty list at this point&quot;). For each comment you can either:</p>
+<ol>
+<li>
+<p>Address the issue. For example, if the reviewer has pointed out correctly
+that something needs to be changed then:</p>
+<ol>
+<li>make a small additional commit (one per fix);</li>
+<li>push it to your branch;</li>
+<li>and, in the same place as the reviewer made their comment, add a new
+comment <code>Fixed in &lt;git hash&gt;</code>.</li>
+</ol>
+<p>The reviewer will then review your change and either: mark the
+conversation as &quot;resolved&quot; if their point is adequately addressed; or
+raise further comments otherwise.</p>
+<p>Note that the reviewee must not: mark conversations as resolved (only the
+reviewer should do so); force push updates to your branch unless
+explicitly requested to do so by the reviewer (always make new commits on
+the existing branch).</p>
+</li>
+<li>
+<p>Add a query. You might not understand the reviewer's question: it's fine
+to ask for clarification.</p>
+</li>
+<li>
+<p>Explain why you think there is not an issue. The reviewer might have
+misunderstood either the details of a change, or the pull request's
+context (e.g. the pull request might not have intended to fix every
+possible issue). A complete, and polite explanation, can help both
+reviewer and reviewee focus on the essentials.</p>
+</li>
+</ol>
+<p>Often multiple rounds of comments, queries, and fixes are required. When the
+reviewer is happy with the changes, they will ask the reviewee to &quot;please
+squash&quot; their pull request. The aim here is to provide a readable sequence of
+commits for those who later need to look at the history of changes to a
+particular part of the repository. The general aim is to provide a pleasing
+sequence of individually documented commits which clearly articulate a change to future
+readers. At the very least, all of the &quot;fix commits&quot; must be merged away:
+commonly, these are merged into the main commits, or, though rarely, into a new
+commit(s). It is not required, and is often undesirable, to squash all commits
+down into a single commit: when multiple commits can better explain a change,
+they are much preferred. During squashing, you should also check that commit
+messages still accurately document their contents: revise those which need
+updating.</p>
+<p>The process of squashing is synonymous with <code>git rebase</code>, so when you are asked
+to squash it is also acceptable to: rebase the commit against the <code>master</code>
+branch at the same time; and force push the resulting rebased branch.</p>
+<p>Not that being asked to squash or to update a commit message are the only times
+you may force push an update to a branch. In both cases, the reviewee must only
+do so when explicitly asked to by a reviewer. If you are unsure, please ask a
+reviewer before force pushing.</p>
+<h2 id="documentation"><a class="header" href="#documentation">Documentation</a></h2>
+<p>Most of us prefer programming to writing documentation, whether that
+documentation is in the form of a comment or commit description (etc). That can
+lead us to rush, or omit, documentation, making life difficult for pull request
+reviewers and future contributors. We must prioritise creating and maintaining
+documentation.</p>
+<p>yk's documentation must be clear, concise, and complete. A good rule of thumb
+is to write documentation to the quality you would like to read it: use
+&quot;proper&quot; English (e.g. avoid colloquialisms), capitalise and punctuate
+appropriately, and don't expect to phrase things perfectly on your first
+attempt.</p>
+<p>In the context of pull requests, bear in mind that the code captures <em>what</em> has
+been changed, but not <em>why</em>: good documentation explains the context of a
+change, the reason the change is as it is, and the consequences of the change.
+The pull request itself should come with a description of what it aims to
+achieve and each individual commit must also contain a self-contained
+description of its changes.</p>
+
+                    </main>
+
+                    <nav class="nav-wrapper" aria-label="Page navigation">
+                        <!-- Mobile navigation buttons -->
+
+
+                        <div style="clear: both"></div>
+                    </nav>
+                </div>
+            </div>
+
+            <nav class="nav-wide-wrapper" aria-label="Page navigation">
+
+            </nav>
+
+        </div>
+
+
+
+
+        <script>
+            window.playground_copyable = true;
+        </script>
+
+
+        <script src="elasticlunr.min.js"></script>
+        <script src="mark.min.js"></script>
+        <script src="searcher.js"></script>
+
+        <script src="clipboard.min.js"></script>
+        <script src="highlight.js"></script>
+        <script src="book.js"></script>
+
+        <!-- Custom JS scripts -->
+
+        <script>
+        window.addEventListener('load', function() {
+            window.setTimeout(window.print, 100);
+        });
+        </script>
+
+    </div>
+    </body>
+</html>
