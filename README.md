@@ -1,7 +1,3 @@
-# ykdocs
+# ykdocs: THIS REPOSITORY IS ARCHIVED
 
-Documentation for the Yorick Metatracer.
-
-Use [mdbook](https://crates.io/crates/mdbook) to generate the docs.
-
-Current documentation is [hosted here](https://ykjit.github.io/ykdocs/).
+The contents of this repository are now part of https://github.com/ykjit/yk
